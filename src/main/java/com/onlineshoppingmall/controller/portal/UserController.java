@@ -5,6 +5,7 @@ import com.onlineshoppingmall.common.ServerResponse;
 import com.onlineshoppingmall.pojo.User;
 import com.onlineshoppingmall.service.IUserService;
 import net.sf.jsqlparser.schema.Server;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,5 +57,44 @@ public class UserController {
     @ResponseBody
     public ServerResponse<String> checkValid(String str, String type) {
         return iUserService.checkValid(str, type);
+    }
+
+    @RequestMapping(value = "getUserInfo.do", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<User> getUserInfo(HttpSession session) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user != null) {
+            return ServerResponse.createBySuccess(user);
+        }
+        return ServerResponse.createByErrorMessage("用户未登录，无法获取当前用户的信息");
+    }
+
+    @RequestMapping(value = "forget_get_question.do", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<String> forgetGetQuestion(String username) {
+        return iUserService.selectQuestion(username);
+
+    }
+
+    @RequestMapping(value = "forget_check_answer.do", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<String> forgetCheckAnswer(String username, String question, String answer) {
+        return iUserService.checkAnswer(username, question, answer);
+    }
+
+    @RequestMapping(value = "forget_reset_password.do", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<String> forgetResetPassword(String username, String passwordNew, String forgetToken) {
+        return iUserService.forgetResetPassword(username, passwordNew, forgetToken);
+    }
+
+    @RequestMapping(value = "reset_password.do", method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<String> ResetPassword(HttpSession session, String passwordOld, String passwordNew) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorMessage("用户未登录");
+        }
+        return iUserService.resetPassword(passwordOld, passwordNew, user);
     }
 }
