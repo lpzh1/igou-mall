@@ -10,7 +10,7 @@ public class ProductDetailVo {
     private String subtitle;
     private String mainImage;
     private String subImages;
-    private String details;
+    private String detail;
     private BigDecimal price;
     private Integer stock;
     private Integer status;
@@ -68,12 +68,12 @@ public class ProductDetailVo {
         this.subImages = subImages;
     }
 
-    public String getDetails() {
-        return details;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public BigDecimal getPrice() {
