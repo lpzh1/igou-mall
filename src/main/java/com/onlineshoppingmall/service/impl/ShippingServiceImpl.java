@@ -35,4 +35,13 @@ public class ShippingServiceImpl implements IShippingService {
         }
         return ServerResponse.createByErrorMessage("删除地址失败");
     }
+
+    public ServerResponse update(Integer userId, Shipping shipping) {
+        shipping.setUserId(userId);
+        int rowCount = shippingMapper.updateByShipping(shipping);
+        if (rowCount > 0) {
+            return ServerResponse.createBySuccess("更新地址成功");
+        }
+        return ServerResponse.createByErrorMessage("更新地址失败");
+    }
 }
