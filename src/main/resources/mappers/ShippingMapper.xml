@@ -31,7 +31,7 @@
     delete from mall_shipping
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.onlineshoppingmall.pojo.Shipping">
+    <insert id="insert" parameterType="com.onlineshoppingmall.pojo.Shipping" useGeneratedKeys="true" keyProperty="id">
     insert into mall_shipping (id, user_id, receiver_name, 
       receiver_phone, receiver_mobile, receiver_province, 
       receiver_city, receiver_district, receiver_address, 
@@ -176,4 +176,11 @@
       update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+    <delete id="deleteByShippingIdUserId" parameterType="map">
+        delete  from mall_shipping
+        where id = #{shippingId}
+        and user_id = #{userId}
+    </delete>
+
 </mapper>
