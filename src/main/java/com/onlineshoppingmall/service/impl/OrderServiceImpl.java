@@ -5,6 +5,8 @@ import com.alipay.demo.trade.model.ExtendParams;
 import com.alipay.demo.trade.model.GoodsDetail;
 import com.alipay.demo.trade.model.builder.AlipayTradePrecreateRequestBuilder;
 import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
+import com.alipay.demo.trade.utils.ZxingUtils;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.onlineshoppingmall.common.ServerResponse;
 import com.onlineshoppingmall.dao.OrderItemMapper;
@@ -12,15 +14,24 @@ import com.onlineshoppingmall.dao.OrderMapper;
 import com.onlineshoppingmall.pojo.Order;
 import com.onlineshoppingmall.pojo.OrderItem;
 import com.onlineshoppingmall.service.IOrderService;
+import com.onlineshoppingmall.util.BigDecimalUtil;
+import com.onlineshoppingmall.util.FTPUtil;
+import com.onlineshoppingmall.util.PropertiesUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service("iOrderService")
 public class OrderServiceImpl implements IOrderService {
+
+    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
     private OrderMapper orderMapper;
@@ -77,17 +88,11 @@ public class OrderServiceImpl implements IOrderService {
 
         List<OrderItem> orderItemList = orderItemMapper.getByOrderNoUserId(orderNo, userId);
         for (OrderItem orderItem : orderItemList) {
-
+            GoodsDetail goods = GoodsDetail.newInstance(orderItem.getProductId().toString(), orderItem.getProductName(),
+                    BigDecimalUtil.mul(orderItem.getCurrentUnitPrice().doubleValue(), new Double(100).doubleValue()).longValue(),
+                    orderItem.getQuantity());
+            goodsDetailList.add(goods);
         }
-
-        // 创建一个商品信息，参数含义分别为商品id（使用国标）、名称、单价（单位为分）、数量，如果需要添加商品类别，详见GoodsDetail
-        GoodsDetail goods1 = GoodsDetail.newInstance("goods_id001", "xxx小面包", 1000, 1);
-        // 创建好一个商品后添加至商品明细列表
-        goodsDetailList.add(goods1);
-
-        // 继续创建并添加第一条商品信息，用户购买的产品为“黑人牙刷”，单价为5.00元，购买了两件
-        GoodsDetail goods2 = GoodsDetail.newInstance("goods_id002", "xxx牙刷", 500, 2);
-        goodsDetailList.add(goods2);
 
         // 创建扫码支付请求builder，设置请求参数
         AlipayTradePrecreateRequestBuilder builder = new AlipayTradePrecreateRequestBuilder()
@@ -95,36 +100,60 @@ public class OrderServiceImpl implements IOrderService {
                 .setUndiscountableAmount(undiscountableAmount).setSellerId(sellerId).setBody(body)
                 .setOperatorId(operatorId).setStoreId(storeId).setExtendParams(extendParams)
                 .setTimeoutExpress(timeoutExpress)
-                //                .setNotifyUrl("http://www.test-notify-url.com")//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
+                .setNotifyUrl(PropertiesUtil.getProperty("alipay.callback.url"))//支付宝服务器主动通知商户服务器里指定的页面http路径,根据需要设置
                 .setGoodsDetailList(goodsDetailList);
 
         AlipayF2FPrecreateResult result = tradeService.tradePrecreate(builder);
         switch (result.getTradeStatus()) {
             case SUCCESS:
-                log.info("支付宝预下单成功: )");
+                logger.info("支付宝预下单成功: )");
 
                 AlipayTradePrecreateResponse response = result.getResponse();
                 dumpResponse(response);
 
+                File folder = new File(path);
+                if (!folder.exists()) {
+                    folder.setWritable(true);
+                    folder.mkdirs();
+                }
+
                 // 需要修改为运行机器上的路径
-                String filePath = String.format("/Users/sudo/Desktop/qr-%s.png",
-                        response.getOutTradeNo());
-                log.info("filePath:" + filePath);
-                //                ZxingUtils.getQRCodeImge(response.getQrCode(), 256, filePath);
-                break;
+                String qrPath = String.format(path + "/qr-%s.png", response.getOutTradeNo());
+                String qrFileName = String.format("qr-%s.png", response.getOutTradeNo());
+                ZxingUtils.getQRCodeImge(response.getQrCode(), 256, qrPath);
 
+                File targetFile = new File(path, qrFileName);
+                try {
+                    FTPUtil.uploadFile(Lists.newArrayList(targetFile));
+                } catch (IOException e) {
+                    logger.error("上传二维码异常", e);
+                }
+                logger.info("qrPath:", qrPath);
+                String qrUrl = PropertiesUtil.getProperty("ftp.server.http.prefix") + targetFile.getName();
+                resultMap.put("qrUrl", qrUrl);
+                return ServerResponse.createBySuccess(resultMap);
             case FAILED:
-                log.error("支付宝预下单失败!!!");
-                break;
-
+                logger.error("支付宝预下单失败!!!");
+                return ServerResponse.createByErrorMessage("支付宝预下单失败!!!");
             case UNKNOWN:
-                log.error("系统异常，预下单状态未知!!!");
-                break;
-
+                logger.error("系统异常，预下单状态未知!!!");
+                return ServerResponse.createByErrorMessage("系统异常，预下单状态未知!!!");
             default:
-                log.error("不支持的交易状态，交易返回异常!!!");
-                break;
+                logger.error("不支持的交易状态，交易返回异常!!!");
+                return ServerResponse.createByErrorMessage("不支持的交易状态，交易返回异常!!!);
         }
 
+    }
+
+    // 简单打印应答
+    private void dumpResponse(AlipayResponse response) {
+        if (response != null) {
+            logger.info(String.format("code:%s, msg:%s", response.getCode(), response.getMsg()));
+            if (StringUtils.isNotEmpty(response.getSubCode())) {
+                logger.info(String.format("subCode:%s, subMsg:%s", response.getSubCode(),
+                        response.getSubMsg()));
+            }
+            logger.info("body:" + response.getBody());
+        }
     }
 }
