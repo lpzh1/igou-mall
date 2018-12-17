@@ -1,5 +1,6 @@
 package com.onlineshoppingmall.dao;
 
+import com.onlineshoppingmall.pojo.Order;
 import com.onlineshoppingmall.pojo.OrderItem;
 import org.apache.ibatis.annotations.Param;
 

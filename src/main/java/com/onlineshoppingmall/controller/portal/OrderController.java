@@ -1,6 +1,9 @@
 package com.onlineshoppingmall.controller.portal;
 
 
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.internal.util.AlipaySignature;
+import com.alipay.demo.trade.config.Configs;
 import com.google.common.collect.Maps;
 import com.onlineshoppingmall.common.Const;
 import com.onlineshoppingmall.common.ResponseCode;
@@ -27,6 +30,31 @@ public class OrderController {
 
     @Autowired
     private IOrderService iOrderService;
+
+    @RequestMapping("create.do")
+    @ResponseBody
+    public ServerResponse create(HttpSession session, Integer shippingId) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+        }
+        String path = request.getSession().getServletContext().getRealPath("upload");
+        return iOrderService.pay(orderNo, user.getId(), path);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @RequestMapping("pay.do")
@@ -58,6 +86,40 @@ public class OrderController {
         logger.info("支付宝回调,sign:{},trade_status:{},参数:{}", params.get("sign"), params.get("trade_status"), params.toString());
 
         //验证回调的正确性，确认是支付宝发的，且避免重复
+
+        params.remove("sign_type");
+        try {
+            boolean alipayRSACheckedV2 = AlipaySignature.rsaCheckV2(params, Configs.getAlipayPublicKey(), "utf-8", Configs.getSignType());
+
+            if (!alipayRSACheckedV2) {
+                return ServerResponse.createByErrorMessage("非法请求，验证不通过");
+            }
+        } catch (AlipayApiException e) {
+            logger.error("支付宝验证回调异常", e);
+        }
+
+        //todo 验证各种数据
+
+        ServerResponse serverResponse = iOrderService.aliCallback(params);
+        if (serverResponse.isSuccess()) {
+            return Const.AlipayCallback.RESPONSE_SUCCESS;
+        }
+        return Const.AlipayCallback.RESPONSE_FAILED;
+    }
+
+    @RequestMapping("query_order_pay_status.do")
+    @ResponseBody
+    public ServerResponse<Boolean> queryOrderPayStatus(HttpSession session, Long orderNo) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user == null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+        }
+
+        ServerResponse serverResponse = iOrderService.queryOrderPayStatus(user.getId(), orderNo);
+        if (serverResponse.isSuccess()) {
+            return ServerResponse.createBySuccess(true);
+        }
+        return ServerResponse.createBySuccess(false);
     }
 
 }
