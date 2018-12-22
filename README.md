@@ -1,5 +1,5 @@
 # OnelineShoppingMall-v1.0(Server-side)
-##基础知识
+## 基础知识
 * Spring MVC
 
 [详解1](https://blog.csdn.net/u013087513/article/details/73290717)，[详解2](https://blog.csdn.net/u013087513/article/details/73505211)
