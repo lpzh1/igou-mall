@@ -217,8 +217,15 @@
     <select id="selectByUserId" resultMap="BaseResultMap" parameterType="int">
         select
         <include refid="Base_Column_List"/>
-        from mall_user
+        from mall_order
         where user_id = #{userId}
+        order by create_time desc
+    </select>
+    
+    <select id="selectAllOrder" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List"/>
+        from mall_order
         order by create_time desc
     </select>
 </mapper>

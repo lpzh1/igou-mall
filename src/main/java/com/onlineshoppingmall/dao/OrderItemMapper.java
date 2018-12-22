@@ -1,6 +1,6 @@
 package com.onlineshoppingmall.dao;
 
-import com.onlineshoppingmall.pojo.Order;
+
 import com.onlineshoppingmall.pojo.OrderItem;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,6 +20,8 @@ public interface OrderItemMapper {
     int updateByPrimaryKey(OrderItem record);
 
     List<OrderItem> getByOrderNoUserId(@Param("orderNo") Long orderNo, @Param("userId") Integer userId);
+
+    List<OrderItem> getByOrderNo(@Param("orderNo") Long orderNo);
 
     void batchInsert(@Param("orderItemList") List<OrderItem> orderItemList);
 }

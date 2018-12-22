@@ -172,6 +172,13 @@
         and user_id = #{userId}
     </select>
 
+    <select id="getByOrderNo" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from mall_order_item
+        where order_no = #{orderNo}
+    </select>
+
     <insert id="batchInsert" parameterType="list">
         insert into mall_order_item (id, user_id, order_no,
         product_id, product_name, product_image,
@@ -183,10 +190,5 @@
             #{item.id},#{item.userId},#{item.orderNo},#{item.productId},#{item.productName},#{item.productImage},#{item.currentUnitPrice},#{item.quantity},#{item.totalPrice},now(),now()
             )
         </foreach>
-        (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderNo,jdbcType=BIGINT},
-        #{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{productImage,jdbcType=VARCHAR},
-        #{currentUnitPrice,jdbcType=DECIMAL}, #{quantity,jdbcType=INTEGER}, #{totalPrice,jdbcType=DECIMAL},
-        now(), now())
     </insert>
-
 </mapper>
