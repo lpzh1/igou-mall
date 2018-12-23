@@ -10,7 +10,9 @@
 
 [详解5](https://www.cnblogs.com/ysocean/p/7376596.html)，[详解6](https://www.cnblogs.com/ysocean/p/7375405.html#_label0)
 
+* [DispatcherServlet](https://blog.csdn.net/u012881904/article/details/51292211)
 
+* [Java泛型](https://blog.csdn.net/u012152619/article/details/47253811)
 
 ## 数据库表结构设计
 引擎-[InnoDB](https://zh.wikipedia.org/wiki/InnoDB)
@@ -25,19 +27,42 @@
 
 分类表要考虑递归和递归结束条件，可以通过设置parent_id来说明根节点
 ## 用户模块
-防止越权，密码加密，Guava缓存，高复用对象的抽象封装
+通过校验方法防止越权(此处为硬编码，可以通过SpringMVC拦截器重构)
+
+MD5密码加密
+
+Guava缓存存储忘记密码时重置密码的Token
+
+高复用对象ServerResponse的抽象封装
 
 ## 分类管理模块
+递归查询分类算法
+
+复杂对象重排
+
+无限层级设计
 
 ## 商品管理模块
+POJO、BO、VO抽象模型
+
+基于pagehelper的动态分页
+
+FTP对接、富文本上传
 
 ## 购物车模块
+BigDecimal解决浮点计算丢失精度
 
 ## 收货地址管理模块
 
+Spring MVC 对象绑定
+
+MyBatis自动生成主键
 ## 支付模块
+[对接支付宝](http://learning.happymmall.com/alipaydoc.html)
 
 ## 订单管理模块
+通过常量，枚举设计使得XX
+
 
 
 ## Reference

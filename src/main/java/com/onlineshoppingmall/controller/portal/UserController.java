@@ -5,8 +5,6 @@ import com.onlineshoppingmall.common.ResponseCode;
 import com.onlineshoppingmall.common.ServerResponse;
 import com.onlineshoppingmall.pojo.User;
 import com.onlineshoppingmall.service.IUserService;
-import com.sun.corba.se.spi.activation.Server;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
