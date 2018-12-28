@@ -79,11 +79,8 @@ Spring MVC 对象绑定
 
 MyBatis自动生成主键
 ## 支付模块
-[对接支付宝](http://learning.happymmall.com/alipaydoc.html)
+对接支付宝
 
 ## 订单管理模块
 通过常量，枚举提高扩展性、安全性
 
-
-## Reference
->[Java从零到企业级电商项目实战-服务端](https://coding.imooc.com/class/96.html)
