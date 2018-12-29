@@ -1,4 +1,4 @@
-# Oneline Shopping Mall(Server side)
+# Online Shopping Mall(Server side)
 ![FunctionList](./FunctionList.png)
 
 ![version1.0](https://img.shields.io/badge/mall-v1.0-brightgreen.svg)
