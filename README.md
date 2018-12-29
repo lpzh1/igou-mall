@@ -1,7 +1,7 @@
 # Oneline Shopping Mall(Server side)
 ![FunctionList](./FunctionList.png)
 
-https://img.shields.io/badge/mall-v1.0-brightgreen.svg
+![version1.0](https://img.shields.io/badge/mall-v1.0-brightgreen.svg)
 
 - Skills
 
