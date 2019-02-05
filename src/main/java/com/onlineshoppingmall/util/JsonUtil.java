@@ -1,6 +1,7 @@
 package com.onlineshoppingmall.util;
 
 import com.google.common.collect.Lists;
+import com.onlineshoppingmall.pojo.TestPojo;
 import com.onlineshoppingmall.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,7 @@ import org.codehaus.jackson.type.TypeReference;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -34,7 +36,7 @@ public class JsonUtil {
         objectMapper.setDateFormat(new SimpleDateFormat(DateTimeUtil.STANDARD_FORMAT));
 
         //忽略 在Json字符串中存在，但是在Java对象中不存在对应属性的情况，防止错误
-        objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//        objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     public static <T> String obj2String(T obj) {
@@ -102,40 +104,55 @@ public class JsonUtil {
     }
 
     public static void main(String[] args) {
-        User u1 = new User();
-        u1.setId(1);
-        u1.setEmail("yexs96@163.com");
+        TestPojo testPojo = new TestPojo();
+        testPojo.setName("yexuesong");
+        testPojo.setId(218);
 
-        User u2 = new User();
-        u2.setId(2);
-        u2.setEmail("yexs96u2@163.com");
+        String json = "{\"name\":\"yexuesong\",\"color\":\"blue\",\"id\":218}";
+        TestPojo testPojsoObject = JsonUtil.string2Obj(json, TestPojo.class);
 
-        String user1Json = JsonUtil.obj2String(u1);
+//        String testPojoJson = JsonUtil.obj2StringPretty(testPojo);
+//        log.info("testPojoJson:{}", testPojoJson);
+        log.info("end");
 
-        String user1JsonPretty = JsonUtil.obj2StringPretty(u1);
 
-        log.info("user1Json:{}", user1Json);
+//        User user = new User();
+//        user.setId(2);
+//        user.setEmail("yexs96@163.com");
+//        user.setCreateTime(new Date());
+//        String userJsonPretty = JsonUtil.obj2StringPretty(user);
+//        log.info("user1Json:{}", userJsonPretty);
 
-        log.info("user1JsonPretty:{}", user1JsonPretty);
-
-        User user = JsonUtil.string2Obj(user1Json, User.class);
-
-        List<User> userList = Lists.newArrayList();
-        userList.add(u1);
-        userList.add(u2);
-
-        String userListStr = JsonUtil.obj2StringPretty(userList);
-
-        log.info("=================");
-
-        log.info(userListStr);
-
-        List<User> userListObj1 = JsonUtil.string2Obj(userListStr, new TypeReference<List<User>>() {
-        });
-
-        List<User> userListObj2 = JsonUtil.string2Obj(userListStr, List.class, User.class);
-
-        System.out.println("end");
+//        User u2 = new User();
+//        u2.setId(2);
+//        u2.setEmail("yexs96u2@163.com");
+//
+//        String user1Json = JsonUtil.obj2String(u1);
+//
+//        String user1JsonPretty = JsonUtil.obj2StringPretty(u1);
+//
+//        log.info("user1Json:{}", user1Json);
+//
+//        log.info("user1JsonPretty:{}", user1JsonPretty);
+//
+//        User user = JsonUtil.string2Obj(user1Json, User.class);
+//
+//        List<User> userList = Lists.newArrayList();
+//        userList.add(u1);
+//        userList.add(u2);
+//
+//        String userListStr = JsonUtil.obj2StringPretty(userList);
+//
+//        log.info("=================");
+//
+//        log.info(userListStr);
+//
+//        List<User> userListObj1 = JsonUtil.string2Obj(userListStr, new TypeReference<List<User>>() {
+//        });
+//
+//        List<User> userListObj2 = JsonUtil.string2Obj(userListStr, List.class, User.class);
+//
+//        System.out.println("end");
     }
 
 }
