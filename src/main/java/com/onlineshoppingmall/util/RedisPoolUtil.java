@@ -21,7 +21,7 @@ public class RedisPoolUtil {
             jedis = RedisPool.getJedis();
             result = jedis.expire(key, exTime);
         } catch (Exception e) {
-            log.error("expire key:{} value:{} error", key, e);
+            log.error("expire key:{} error", key, e);
             RedisPool.returnBrokenResource(jedis);
             return result;
         }

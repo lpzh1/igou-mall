@@ -109,7 +109,7 @@ public class JsonUtil {
         testPojo.setId(218);
 
         String json = "{\"name\":\"yexuesong\",\"color\":\"blue\",\"id\":218}";
-        TestPojo testPojsoObject = JsonUtil.string2Obj(json, TestPojo.class);
+        TestPojo testPojoObject = JsonUtil.string2Obj(json, TestPojo.class);
 
 //        String testPojoJson = JsonUtil.obj2StringPretty(testPojo);
 //        log.info("testPojoJson:{}", testPojoJson);
