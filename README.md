@@ -4,7 +4,7 @@
 
 主要技术为 Spring / SpringMVC / MyBatis / Redis / Nginx / Tomcat
 
-#简介
+# 简介
 ![version1.0](https://img.shields.io/badge/mall-v1.0-brightgreen.svg) 
 
 **主要集成了服务端的基本功能**
