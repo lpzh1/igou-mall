@@ -5,9 +5,9 @@
 主要技术为 Spring / SpringMVC / MyBatis / Redis / Nginx / Tomcat
 
 # 简介
-![version1.0](https://img.shields.io/badge/mall-v1.0-brightgreen.svg) 
+![version1.0](https://img.shields.io/badge/tbjd-v1.0-brightgreen.svg) 
 
-**主要集成了服务端的基本功能**
+**主要集成了服务端购物流程相关的基本功能**
 
 ![FunctionList](./FunctionList.png)
 
@@ -44,7 +44,7 @@ FTP服务对接、富文本上传
 二维码生成，扫码支付
 
 
-![version2.0](https://img.shields.io/badge/mall-v2.0-blue.svg)
+![version2.0](https://img.shields.io/badge/tbjd-v2.0-blue.svg)
 
 **Tomcat集群 / Nginx负载均衡 / Redis分布式**
 
