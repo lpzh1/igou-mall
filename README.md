@@ -8,6 +8,16 @@
 
 * 后台管理系统包含了用户管理、商品管理、订单管理。
 
+## 技术栈
+
+* ~~前端技术~~ **尚未开发**
+
+Html + CSS + JQuery + React + Sass
+
+* 后端技术
+
+SSM + Guava + Jackson + Jodatime + MySQL + Tomcat + Redis + Redisson + Logback + Jedis + Maven + Nginx + Vsftpd + PageHelp + Lombok 
+ 
 ## 组织结构
 
 * API
