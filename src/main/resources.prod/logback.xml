@@ -11,7 +11,7 @@
     </appender>
 
     <appender name="onlineshoppingmall" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--<File>C:/Dev/Repositories/onlineshoppingmalllog/onlineshoppingmall.log</File>-->
+        <!--<File>C:/Dev/Repositories/onlineshoppingmalllog/igou.log</File>-->
         <File>C:/Dev/Configurations/apache-tomcat-7.0.75/logs/onlineshoppingmall.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>C:/Dev/Configurations/apache-tomcat-7.0.75/logs/onlineshoppingmall.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
@@ -43,7 +43,7 @@
         </filter>
     </appender>
 
-    <logger name="com.onlineshoppingmall" additivity="false" level="INFO" >
+    <logger name="com.igou" additivity="false" level="INFO" >
         <appender-ref ref="onlineshoppingmall" />
         <appender-ref ref="console"/>
     </logger>
@@ -52,7 +52,7 @@
 
     <!-- geelynote mybatis log 日志 -->
 
-    <logger name="com.onlineshoppingmall.dao" level="DEBUG"/>
+    <logger name="com.igou.dao" level="DEBUG"/>
 
     <!--<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG" >-->
         <!--<appender-ref ref="console"/>-->

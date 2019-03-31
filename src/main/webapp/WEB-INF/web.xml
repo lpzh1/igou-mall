@@ -26,7 +26,7 @@
     <!-- 重置session时间的filter -->
     <!--<filter>-->
         <!--<filter-name>sessionExpireFilter</filter-name>-->
-        <!--<filter-class>com.onlineshoppingmall.controller.common.SessionExpireFilter</filter-class>-->
+        <!--<filter-class>com.igoummon.SessionExpireFilter</filter-class>-->
     <!--</filter>-->
     <!--<filter-mapping>-->
         <!--<filter-name>sessionExpireFilter</filter-name>-->

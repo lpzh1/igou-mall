@@ -8,7 +8,7 @@
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:component-scan base-package="com.onlineshoppingmall.controller" annotation-config="true" use-default-filters="false">
+    <context:component-scan base-package="com.igou.controller" annotation-config="true" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -44,7 +44,7 @@
         <!-- 所有的请求都会被定义在这一层的Bean拦截-->
         <mvc:interceptor>
             <mvc:mapping path="/manage/**"/>
-            <bean class="com.onlineshoppingmall.controller.common.interceptor.AuthorityInterceptor"/>
+            <bean class="com.igou.controller.common.interceptor.AuthorityInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

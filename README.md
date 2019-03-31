@@ -1,62 +1,39 @@
-# 电商网站（服务端）
+# igou / 爱购
 
-本项目是一套服务端的网上购物系统，包含用户 / 分类 / 商品 / 购物车订单 / 收货地址 / 支付 七个模块
+## 项目介绍
 
-主要技术为 Spring / SpringMVC / MyBatis / Redis / Nginx / Tomcat
+**`igou` 项目是一个电商购物平台**
 
-# 简介
-![version1.0](https://img.shields.io/badge/tbjd-v1.0-brightgreen.svg) 
+* 前台商城系统包含了首页门户、个人中心、商品展示、商品搜索、购物车、订单、支付等模块。
 
-**主要集成了服务端购物流程相关的基本功能**
+* 后台管理系统包含了用户管理、商品管理、订单管理。
 
-![FunctionList](./FunctionList.png)
+## 组织结构
 
-用户模块
-横向越权、纵向越权、
-MD5明文加密、Guava缓存
-高复用服务响应对象的封装
+* API
+ 
+![API](./document/resource/API.png)
 
-分类模块
-递归算法
-复杂对象排重
-无限层级树结构设计
+* 项目功能与技术要点
 
-商品模块
-POJO、BO、VO抽象模型
-高效分页及动态排序
-FTP服务对接、富文本上传
+前端
 
-购物车模块
-商品总价计算复用封装
-高复用的逻辑方法封装
+![前端项目功能与技术要点](./document/resource/前端项目功能与技术要点.png)
 
-订单模块
-安全漏洞解决方案
-订单号生成规则
-常量、枚举设计
+后端
 
-收货地址
-同步获取自增主键
-数据绑定的对象绑定
+![后端项目功能与技术要点](./document/resource/后端项目功能与技术要点.png)
 
-支付模块
-支付宝支付流程与集成
-二维码生成，扫码支付
+架构演进
 
+![项目架构演进-1](./document/resource/项目架构演进-1.png)
 
-![version2.0](https://img.shields.io/badge/tbjd-v2.0-blue.svg)
+![项目架构演进-2](./document/resource/项目架构演进-2.png)
 
-**Tomcat集群 / Nginx负载均衡 / Redis分布式**
+## 参考资料
 
-Lombok 注解
-
-Maven 环境隔离
-
-Nginx + Tomcat集群
-
-Redis 存储 Session的原生实现单点登录 /  Spring Session 框架集成实现单点登录
-
-SpringMVC 全局异常处理 + 拦截器实现权限统一校验 + 部分接口改为RESTful实现
-
-Spring Schedule + Redis 分布式锁实现分布式场景下的定时关单 / Redisson 框架集成实现关单
-
+* [从0开始 独立完成企业级Java电商网站开发（服务端）](https://coding.imooc.com/class/96.html)
+* [再谈前后端分离式 
+手把手从0打造电商平台-前端开发](https://coding.imooc.com/class/109.html)
+* [Java企业级电商项目架构演进之路
+Tomcat集群与Redis分布式](https://coding.imooc.com/class/162.html)

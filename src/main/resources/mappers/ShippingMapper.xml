@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.onlineshoppingmall.dao.ShippingMapper">
-    <resultMap id="BaseResultMap" type="com.onlineshoppingmall.pojo.Shipping">
+<mapper namespace="com.igou.dao.ShippingMapper">
+    <resultMap id="BaseResultMap" type="com.igou.pojo.Shipping">
         <constructor>
             <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
@@ -31,7 +31,7 @@
     delete from mall_shipping
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.onlineshoppingmall.pojo.Shipping" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.igou.pojo.Shipping" useGeneratedKeys="true" keyProperty="id">
     insert into mall_shipping (id, user_id, receiver_name, 
       receiver_phone, receiver_mobile, receiver_province, 
       receiver_city, receiver_district, receiver_address, 
@@ -43,7 +43,7 @@
       #{receiverZip,jdbcType=VARCHAR}, now(), now()
       )
   </insert>
-    <insert id="insertSelective" parameterType="com.onlineshoppingmall.pojo.Shipping">
+    <insert id="insertSelective" parameterType="com.igou.pojo.Shipping">
         insert into mall_shipping
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -122,7 +122,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.onlineshoppingmall.pojo.Shipping">
+    <update id="updateByPrimaryKeySelective" parameterType="com.igou.pojo.Shipping">
         update mall_shipping
         <set>
             <if test="userId != null">
@@ -161,7 +161,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.onlineshoppingmall.pojo.Shipping">
+    <update id="updateByPrimaryKey" parameterType="com.igou.pojo.Shipping">
     update mall_shipping
     set user_id = #{userId,jdbcType=INTEGER},
       receiver_name = #{receiverName,jdbcType=VARCHAR},
@@ -183,7 +183,7 @@
         and user_id = #{userId}
     </delete>
 
-    <update id="updateByShipping" parameterType="com.onlineshoppingmall.pojo.Shipping">
+    <update id="updateByShipping" parameterType="com.igou.pojo.Shipping">
         update mall_shipping
     set
       receiver_name = #{receiverName,jdbcType=VARCHAR},
