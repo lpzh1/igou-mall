@@ -10,11 +10,10 @@
         </filter>
     </appender>
 
-    <appender name="onlineshoppingmall" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--<File>C:/Dev/Repositories/onlineshoppingmalllog/igou.log</File>-->
-        <File>C:/Dev/Configurations/apache-tomcat-7.0.75/logs/onlineshoppingmall.log</File>
+    <appender name="igou" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>D:/Program Files/apache-tomcat-7.0.75/logs/igou-mall.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>C:/Dev/Configurations/apache-tomcat-7.0.75/logs/onlineshoppingmall.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <fileNamePattern>D:/Program Files/apache-tomcat-7.0.75/logs/igou-mall.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <append>true</append>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
@@ -25,11 +24,9 @@
 
 
     <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--<File>C:/Dev/Repositories/onlineshoppingmalllog/error.log</File>-->
-        <File>C:/Dev/Configurations/apache-tomcat-7.0.75/logs/error.log</File>
+        <File>D:/Program Files/apache-tomcat-7.0.75/logs/error.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>C:/Dev/Configurations/apache-tomcat-7.0.75/logs/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
-            <!--<fileNamePattern>C:/Dev/Repositories/onlineshoppingmalllog/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>-->
+            <fileNamePattern>D:/Program Files/apache-tomcat-7.0.75/logs/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <append>true</append>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
@@ -44,7 +41,7 @@
     </appender>
 
     <logger name="com.igou" additivity="false" level="INFO" >
-        <appender-ref ref="onlineshoppingmall" />
+        <appender-ref ref="igou" />
         <appender-ref ref="console"/>
     </logger>
 
