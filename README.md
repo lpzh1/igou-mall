@@ -12,7 +12,7 @@
 
 * ~~前端技术~~ **尚未开发**
 
-Html + CSS + JQuery + React + Sass
+Html + CSS + jQuery + React + Sass
 
 * 后端技术
 
